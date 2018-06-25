@@ -1,32 +1,47 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
-import Beer from './Beer';
+import { connect } from 'react-redux';
+import { getBeers } from '../actions/beers';
+import { Card, Container, Header } from 'semantic-ui-react';
+
+
+
 
 class Beers extends React.Component {
-    state = { beers: [] }
-
+  state = { page: 1 }
 
   componentDidMount() {
-   axios.get('/api/all_beers')
-    .then( res => this.setState({ beers: res.data }) )
-   }
-
+      this.props.dispatch(getBeers())
+    }
   
-  render() {
-    const {beers} = this.state;
-    return (
-      <ul>
-        <h1> Beers </h1>
-         { beers.map( beer =>
-          <li key={beer.id}>
-            <Beer beer={beer} />
-          </li>
+    Beers = (props) => {
+      return this.props.beers.map( beer => {
+      return(
+        <Card>
+          <Card.Content>
+            <Card.Header>
+            {beer.name}
+            </Card.Header>
+          </Card.Content>
+        </Card>
+        )
+      })
+    }
+  
+    render() {
+      return (
+        <Container>
+          <Header as="h3" textAlign="center">Beers</Header>
+            <div>
+             {this.beers}
+            </div>
+          </Container>
         )
       }
-      </ul>
-    )
-  }
-}
+    }
 
-export default Beers;
+    const mapStateToProps = (state) => {
+      return { beers: state.beers }
+    }
+    
+    
+    export default connect(mapStateToProps)(Beers);

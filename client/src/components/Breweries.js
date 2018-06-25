@@ -1,14 +1,14 @@
 import React from 'react';
 import axios from 'axios';
-import Brewery from './Brewery';
+
 import { Link } from 'react-router-dom';
-import Beers from './Beers';
+
 
 class Breweries extends React.Component {
-  state = { breweries: [] }
+  state = { breweries: [], beers: [] }
 
   componentDidMount() {
-    axios.get('/api/all_breweries')
+    axios.get('http://localhost:3001/api/all_breweries')
      .then( res => this.setState({ breweries: res.data }) )
     }
 

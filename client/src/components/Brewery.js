@@ -1,21 +1,28 @@
 import React from 'react';
-import { List, Image } from 'semantic-ui-react';
 import axios from 'axios';
 import Beers from './Beers';
+import { Header } from 'semantic-ui-react';
+
+const styles = {
+  text: {
+    Color: 'white',
+  },
+}
+
 
 class Brewery extends React.Component {
   state = { beer: {} }
 
   componentDidMount() {
-    axios.get('/api/beer/:name')
+    axios.get('http://localhost:3001/api/beer/:name')
     .then( res => this.setState({ beer: res.data}) )
   }
 render() {
   return (
     <div>
-      <h1>
+      <Header style={styles.text}>
         Beers
-      </h1>
+      </Header>
       <Beers id={this.props.match.params.id} />
     </div>
   )

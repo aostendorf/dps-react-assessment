@@ -1,15 +1,20 @@
 import React from 'react';
-import { List, Image } from 'semantic-ui-react';
-import axios from 'axios';
+import { connect } from 'react-redux';
 
-const Beer = (props) => {
-  const { beer: {name, description }} = props;
-  return (
-    <div>
-      <h2> {name} </h2>
-      <h3> {description} </h3>
-    </div>
+
+const Beer = ({ beer = {} })=> (
+  
+  <Container>
+    <Header>
+      {beer.name}
+    </Header>
+
+  </Container>
   )
-}
 
-export default Beer;
+  const mapStatetoProps = (state, props) => {
+    return { beer: state.beers.find( b=> b.id === props.match.params.id )}
+  }
+
+
+export default connect(mapStatetoProps)(Beer);

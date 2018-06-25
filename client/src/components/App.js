@@ -16,7 +16,7 @@ class App extends Component {
         <NavBar />
         <Flash />
         <Switch>
-          <Route exact path='/' component={Home} />
+          <Route exact path='/' component={Home} /> 
           <Route path='/beers' component={Beers} />
           <Route path='/breweries' component={Breweries} />
           <Route component={NoMatch} />
